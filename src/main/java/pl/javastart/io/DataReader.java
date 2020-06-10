@@ -6,37 +6,42 @@ import java.util.Scanner;
 
 public class DataReader {
     private Scanner scanner = new Scanner (System.in);
+    private ConsolePrinter consolePrinter;
+
+    public DataReader(ConsolePrinter consolePrinter) {
+        this.consolePrinter = consolePrinter;
+    }
 
     public Book readAndCreateBook() {
 
-        System.out.println ("Tytuł");
+        consolePrinter.printLine ("Tytuł");
         String title = scanner.nextLine ();
-        System.out.println ("Autor");
+        consolePrinter.printLine ("Autor");
         String author = scanner.nextLine ();
-        System.out.println ("Wydawnictwo");
+        consolePrinter.printLine ("Wydawnictwo");
         String publisher = scanner.nextLine ();
-        System.out.println ("ISBN");
+        consolePrinter.printLine ("ISBN");
         String isbn = scanner.nextLine ();
-        System.out.println ("Rok wydania: ");
+        consolePrinter.printLine ("Rok wydania: ");
         int releaseDate = getInt ();
-        System.out.println ("Liczba stron: ");
+        consolePrinter.printLine ("Liczba stron: ");
         int pages = getInt ();
         return new Book (title, author, releaseDate, pages, publisher, isbn);
     }
 
     public Magazine readAndCreateMagazine(){
 
-        System.out.println ("Tytuł");
+        consolePrinter.printLine ("Tytuł");
         String title = scanner.nextLine ();
-        System.out.println ("Wydawnictwo");
+        consolePrinter.printLine ("Wydawnictwo");
         String publisher = scanner.nextLine ();
-        System.out.println ("Język");
+        consolePrinter.printLine ("Język");
         String language = scanner.nextLine ();
-        System.out.println ("Rok wydania: ");
+        consolePrinter.printLine ("Rok wydania: ");
         int year = getInt ();
-        System.out.println ("Miesiac: ");
+        consolePrinter.printLine ("Miesiac: ");
         int month = getInt ();
-        System.out.println ("Dzień: ");
+        consolePrinter.printLine ("Dzień: ");
         int day = getInt ();
 
         return new Magazine (title, publisher, language, year, month, day);
@@ -45,9 +50,11 @@ public class DataReader {
 
 
     public int getInt() {
-        int number = scanner.nextInt ();
-        scanner.nextLine ();
-        return number;
+        try {
+            return scanner.nextInt ();
+        }finally {
+            scanner.nextLine ();
+        }
     }
 
 
