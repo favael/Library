@@ -52,6 +52,12 @@ class LibraryControl {
                 case PRINT_MAGAZINES:
                     printMagazines();
                     break;
+                case DELETE_BOOK:
+                    deleteBook();
+                    break;
+                case DELETE_MAGAZINE:
+                    deleteMagazine();
+                    break;
                 case EXIT:
                     exit();
                     break;
@@ -60,6 +66,7 @@ class LibraryControl {
             }
         } while (option != Option.EXIT);
     }
+
 
     private Option getOption() {
         boolean optionOk = false;
@@ -96,9 +103,16 @@ class LibraryControl {
         }
     }
 
-    private void printBooks() {
-        Publication[] publications = library.getPublications();
-        printer.printBooks(publications);
+    private void deleteBook() {
+        try {
+            Book book = dataReader.readAndCreateBook ();
+            if (library.removePublication (book))
+                printer.printLine ("Usunięto książkę");
+            else
+                printer.printLine ("Brak wskazanej ksiązki");
+        } catch (InputMismatchException e) {
+            printer.printLine ("Nie udało się utworzyć ksiązki, niepoprane dane");
+        }
     }
 
     private void addMagazine() {
@@ -110,6 +124,24 @@ class LibraryControl {
         } catch (ArrayIndexOutOfBoundsException e) {
             printer.printLine("Osiągnięto limit pojemności, nie można dodać kolejnego magazynu");
         }
+    }
+
+    private void deleteMagazine() {
+        try {
+            Magazine magazine = dataReader.readAndCreateMagazine ();
+            if (library.removePublication (magazine))
+                printer.printLine ("Usunięto magazyn");
+            else
+                printer.printLine ("Brak wskazanego magazynu");
+        } catch (InputMismatchException e) {
+            printer.printLine ("Nie udało się utworzyć magazynu, niepoprane dane");
+        }
+    }
+
+
+    private void printBooks() {
+        Publication[] publications = library.getPublications();
+        printer.printBooks(publications);
     }
 
     private void printMagazines() {
@@ -133,7 +165,10 @@ class LibraryControl {
         ADD_BOOK(1, "Dodanie książki"),
         ADD_MAGAZINE(2,"Dodanie magazynu/gazety"),
         PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
-        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet");
+        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet"),
+        DELETE_BOOK(5,"Usuń ksiązkę"),
+        DELETE_MAGAZINE(6,"Usuń Magazun");
+
 
         private int value;
         private String description;
