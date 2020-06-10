@@ -54,7 +54,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>pl.javastart.app.LibraryApp</mainClass>
+              <mainClass>pl.javastart.library.app.LibraryApp</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

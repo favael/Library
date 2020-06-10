@@ -1,6 +1,6 @@
-package pl.javastart.io;
-import pl.javastart.model.Book;
-import pl.javastart.model.Magazine;
+package pl.javastart.library.io;
+import pl.javastart.library.model.Book;
+import pl.javastart.library.model.Magazine;
 
 import java.util.Scanner;
 
@@ -47,7 +47,9 @@ public class DataReader {
         return new Magazine (title, publisher, language, year, month, day);
     }
 
-
+public String getString () {
+       return scanner.nextLine ();
+}
 
     public int getInt() {
         try {
